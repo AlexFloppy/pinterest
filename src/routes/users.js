@@ -1,7 +1,7 @@
 const express = require('express');
 const {getList, create} = require('../modules/user/service');
+const UserService = require('../modules/user/service');
 const router = express.Router();
-
 
 router.get('/me', async (req, res) => {
   const newUser = await create();
@@ -9,12 +9,14 @@ router.get('/me', async (req, res) => {
   res.json({newUser, users});
 });
 
-router.get('/:id', (req, res) => {
-  res.send(req.params.id);
+router.get('/:id', async (req, res) => {
+  const user = await UserService.getById(req.params.id);
+  res.send(user);
 });
 
-router.put('/', (req, res) => {
-    res.send('update');
+router.put('/:id', async (req, res) => {
+  const user = await UserService.updateById(req.params.id, req.body);
+  res.send(user);
 });
 
 module.exports = router;

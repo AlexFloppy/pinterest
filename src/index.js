@@ -1,5 +1,6 @@
 const express = require('express');
 
+const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
 const boardsRouter = require('./routes/boards');
 const pinsRouter = require('./routes/pins');
@@ -7,6 +8,10 @@ const commentsRouter = require('./routes/comments');
 
 const app = express();
 
+// For JSON bodies
+app.use(express.json());
+
+app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/boards', boardsRouter);
 app.use('/pins', pinsRouter);
