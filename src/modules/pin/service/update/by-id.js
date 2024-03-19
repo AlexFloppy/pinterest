@@ -1,7 +1,8 @@
 const { Pin } = require("../../../../common/database.js");
 
-function updateById(id, params) {
-  return Pin.update(params, {
+function updateById(dto) {
+  const {id} = dto;
+  return Pin.update(dto, {
     where: {
       id,
     },

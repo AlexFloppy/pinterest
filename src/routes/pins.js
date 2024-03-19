@@ -12,22 +12,22 @@ router.get('/:id', authenticate, async (req, res) => {
 //   res.send(req.params.userId);
 // });
 
-// router.get('/:id', (req, res) => {
-//     res.send(req.params.id);
-// });
+// get by user id
+
 
 router.post('/', authenticate, async (req, res) => {
-    const pin = await PinService.create({...req.body, UserId: req.user.id});
+    const pin = await PinService.create({...req.body, authorId: req.user.id});
     res.send(pin);
 });
 
-// router.delete('/:id', (req, res) => {
-//     res.send('deteted');
-// });
+router.delete('/:id', async (req, res) => {
+  await PinService.removeById(req.params.id);
+  res.status(200).end();
+});
 
-// router.put('/:id', authenticate, async (req, res) => {
-//     const user = await UserService.updateById(req.params.id, req.body);
-//     res.send(user);
-//   });
+router.put('/', authenticate, async (req, res) => {
+    const pin = await PinService.updateById(req.body);
+    res.send(pin);
+  });
 
 module.exports = router;

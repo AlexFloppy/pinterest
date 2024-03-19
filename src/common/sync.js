@@ -1,6 +1,6 @@
 const sequelize = require('./database').sequelize;
 
-sequelize.sync({ force: false }) // Change to { alter: true } or { force: true } if needed
+sequelize.sync({ force: true }) // Change to { alter: true } or { force: true } if needed
   .then(() => {
     console.log('Database synchronized');
   })

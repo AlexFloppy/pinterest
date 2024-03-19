@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
   
     User.associate = function(models) {
       // Define associations here
-      User.hasMany(models.Pin);
+      User.Pin = User.hasMany(models.Pin);
     };
 
     return User;

@@ -1,7 +1,7 @@
-const { User } = require("../../../../common/database.js");
+const { Pin } = require("../../../../common/database.js");
 
 function create(dto) {
-  return User.create(dto);
+  return Pin.create(dto);
 }
 
 module.exports = create;

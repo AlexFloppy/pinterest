@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     Pin.associate = function(models) {
       // Define associations here
       // Example: User.hasMany(models.Post, { foreignKey: 'userId' });
-      Pin.belongsTo(models.User);
+      Pin.User = Pin.belongsTo(models.User, { foreignKey: 'authorId'});
     };
   
     return Pin;
