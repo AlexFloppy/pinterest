@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     User.associate = function(models) {
       // Define associations here
       User.Pin = User.hasMany(models.Pin, { foreignKey: 'authorId' });
+      User.Board = User.hasMany(models.Board, { foreignKey: 'authorId' });
     };
 
     return User;

@@ -8,19 +8,21 @@ router.get('/:id', authenticate, async (req, res) => {
     res.send(pin);
   });
 
-// router.get('/boards/:boardId', (req, res) => {
-//   res.send(req.params.userId);
-// });
+router.get('/boards/:boardId', (req, res) => {
+  res.send(req.params.userId);
+});
 
-// get by user id
-
+router.get('/users/:userId', authenticate, async (req, res) => {
+  const pin = await PinService.getByAuthorId(req.params.userId);
+  res.send(pin);
+});
 
 router.post('/', authenticate, async (req, res) => {
     const pin = await PinService.create({...req.body, authorId: req.user.id});
     res.send(pin);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authenticate, async (req, res) => {
   await PinService.removeById(req.params.id);
   res.status(200).end();
 });

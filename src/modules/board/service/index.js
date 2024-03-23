@@ -1,15 +1,15 @@
+const create = require("./create");
 const getById = require("./get/by-id");
 const getByAuthorId = require("./get/by-author-id");
 const updateById = require("./update/by-id");
-const create = require("./create");
 const removeById = require("./remove/by-id");
 
-const PinService = {
-    getById,
-    updateById,
+const BoardService = {
     create,
+    getById,
     getByAuthorId,
+    updateById,
     removeById
 };
 
-module.exports = PinService;
+module.exports = BoardService;
