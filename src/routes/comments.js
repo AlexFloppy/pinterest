@@ -13,15 +13,21 @@ router.get(
   })
 );
 
-router.get("/pins/:pinId", async (req, res) => {
-  const comment = await CommentService.getByPinId(req.params.pinId);
-  res.send(comment);
-});
+router.get(
+  "/pins/:pinId",
+  endpointHandler(async (req, res) => {
+    const comment = await CommentService.getByPinId(req.params.pinId);
+    res.send(comment);
+  })
+);
 
-router.get("/users/:authorId", async (req, res) => {
-  const comment = await CommentService.getByAuthorId(req.params.authorId);
-  res.send(comment);
-});
+router.get(
+  "/users/:authorId",
+  endpointHandler(async (req, res) => {
+    const comment = await CommentService.getByAuthorId(req.params.authorId);
+    res.send(comment);
+  })
+);
 
 router.post(
   "/",
@@ -35,17 +41,25 @@ router.post(
   })
 );
 
-router.delete("/:id", authenticate, async (req, res) => {
-  await CommentService.removeById(req.params.id);
-  res.status(200).end();
-});
+router.put(
+  "/",
+  authenticate,
+  endpointHandler(async (req, res) => {
+    const comment = await CommentService.updateById({
+      ...req.body,
+      authorId: req.user.id,
+    });
+    res.send(comment);
+  })
+);
 
-router.put("/", authenticate, async (req, res) => {
-  const comment = await CommentService.updateById({
-    ...req.body,
-    authorId: req.user.id,
-  });
-  res.send(comment);
-});
+router.delete(
+  "/:id",
+  authenticate,
+  endpointHandler(async (req, res) => {
+    await CommentService.removeById(req.params.id);
+    res.status(200).end();
+  })
+);
 
 module.exports = router;
