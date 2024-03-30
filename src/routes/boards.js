@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const BoardService = require("../modules/board/service");
 const authenticate = require("../middlewares/authenticate");
+const endpointHandler = require("../utils/endpoint-handler");
+
 
 router.get(
   "/:id",

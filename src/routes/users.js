@@ -1,8 +1,10 @@
 const express = require("express");
+const router = express.Router();
 const { getList, create } = require("../modules/user/service");
 const UserService = require("../modules/user/service");
 const authenticate = require("../middlewares/authenticate");
-const router = express.Router();
+const endpointHandler = require("../utils/endpoint-handler");
+
 
 router.get(
   "/me",

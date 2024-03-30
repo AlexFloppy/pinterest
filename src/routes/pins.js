@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const PinService = require("../modules/pin/service");
 const authenticate = require("../middlewares/authenticate");
+const endpointHandler = require("../utils/endpoint-handler");
+
 
 router.get(
   "/:id",
@@ -12,9 +14,14 @@ router.get(
   })
 );
 
-router.get("/boards/:boardId", (req, res) => {
-  res.send(req.params.userId);
-});
+router.get(
+  "/boards/:boardId",
+  authenticate,
+  endpointHandler(async (req, res) => {
+    const pin = await PinService.getByBoardId(req.params.boardId);
+    res.send(pin);
+  })
+);
 
 router.get(
   "/users/:authorId",

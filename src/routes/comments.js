@@ -4,6 +4,7 @@ const CommentService = require("../modules/comment/service");
 const authenticate = require("../middlewares/authenticate");
 const endpointHandler = require("../utils/endpoint-handler");
 
+
 router.get(
   "/:id",
   authenticate,
