@@ -41,6 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       // Define associations here
       User.Pin = User.hasMany(models.Pin, { foreignKey: 'authorId' });
       User.Board = User.hasMany(models.Board, { foreignKey: 'authorId' });
+      User.Comment = User.hasMany(models.Comment, { foreignKey: 'authorId' });
     };
 
     return User;

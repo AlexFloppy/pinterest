@@ -1,17 +1,51 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const CommentService = require("../modules/comment/service");
+const authenticate = require("../middlewares/authenticate");
+const endpointHandler = require("../utils/endpoint-handler");
 
+router.get(
+  "/:id",
+  authenticate,
+  endpointHandler(async (req, res) => {
+    const comment = await CommentService.getById(req.params.id);
+    res.send(comment);
+  })
+);
 
-router.get('/pins/:pinId', (req, res) => {
-  res.send(req.params.userId);
+router.get("/pins/:pinId", async (req, res) => {
+  const comment = await CommentService.getByPinId(req.params.pinId);
+  res.send(comment);
 });
 
-router.post('/', (req, res) => {
-  res.send('created');
+router.get("/users/:authorId", async (req, res) => {
+  const comment = await CommentService.getByAuthorId(req.params.authorId);
+  res.send(comment);
 });
 
-router.delete('/:id', (req, res) => {
-    res.send('deteted');
+router.post(
+  "/",
+  authenticate,
+  endpointHandler(async (req, res) => {
+    const comment = await CommentService.create({
+      ...req.body,
+      authorId: req.user.id,
+    });
+    res.send(comment);
+  })
+);
+
+router.delete("/:id", authenticate, async (req, res) => {
+  await CommentService.removeById(req.params.id);
+  res.status(200).end();
+});
+
+router.put("/", authenticate, async (req, res) => {
+  const comment = await CommentService.updateById({
+    ...req.body,
+    authorId: req.user.id,
+  });
+  res.send(comment);
 });
 
 module.exports = router;

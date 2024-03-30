@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       // Example: User.hasMany(models.Post, { foreignKey: 'userId' });
       Pin.User = Pin.belongsTo(models.User, { foreignKey: 'authorId'});
       Pin.Pin = Pin.belongsTo(models.Board, { foreignKey: 'boardId'});
+      Pin.Comment = Pin.hasMany(models.Comment, { foreignKey: 'pinId'});
     };
   
     return Pin;

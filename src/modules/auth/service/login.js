@@ -5,7 +5,10 @@ async function login(dto) {
     const user = await UserService.getByEmail(dto.email);
 
     if (!user || dto.password !== user.password) {
-        throw new Error('Invalid credentials');
+        throw  {
+            status: 400,
+            message: "Invalid credentials"
+        }
     }
 
     return {
